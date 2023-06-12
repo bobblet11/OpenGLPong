@@ -6,7 +6,7 @@ VertexArrayObject::VertexArrayObject()
 	glGenVertexArrays(1, &ID);
 }
 
-void VertexArrayObject::LinkVertexBuffferObject(VertexBufferObject VBO, GLuint layout, GLuint numberOfComponents, GLenum type, GLsizeiptr stride, void* offset)
+void VertexArrayObject::LinkVertexBuffferObject(VertexBufferObject VBO, GLuint layout, GLuint numberOfComponents, GLenum type, GLsizeiptr stride, void* offset, GLuint divisor)
 {
 	//         VERTEX 1                VERTEX2
 	// COORDINATE    COLOR     COORDINATE    COLOR
@@ -22,6 +22,11 @@ void VertexArrayObject::LinkVertexBuffferObject(VertexBufferObject VBO, GLuint l
 	//enables the vertex array object
 	glEnableVertexAttribArray(layout);
 	VBO.Unbind();
+
+	if (divisor > 0)
+	{
+		glVertexAttribDivisor(layout, divisor);
+	}
 }
 
 void VertexArrayObject::Bind()

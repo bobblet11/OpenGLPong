@@ -159,8 +159,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ElementBufferObject.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ShaderClass.cpp" />
+    <ClCompile Include="stb.cpp" />
+    <ClCompile Include="TextureClass.cpp" />
+    <ClCompile Include="VertexArrayObjectClass.cpp" />
+    <ClCompile Include="VertexBufferObjectClass.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ball.frag" />
+    <None Include="ball.vert" />
+    <None Include="default.frag" />
+    <None Include="default.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ElementBufferObjectClass.h" />
+    <ClInclude Include="Gameobject.h" />
+    <ClInclude Include="ShaderClass.h" />
+    <ClInclude Include="TextureClass.h" />
+    <ClInclude Include="VertexArrayObjectClass.h" />
+    <ClInclude Include="VertexBufferObjectClass.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

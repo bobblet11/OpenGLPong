@@ -9,6 +9,7 @@ public:
 	GLuint ID;
 	VertexBufferObject(GLfloat* verticesToRender, GLsizeiptr size);
 
+	void UpdateData(GLuint numberOfComponents, GLenum type, GLintptr offset, GLfloat* data);
 	void Bind();
 	void Unbind();
 	void Delete();

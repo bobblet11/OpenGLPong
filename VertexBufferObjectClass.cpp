@@ -27,3 +27,10 @@ void VertexBufferObject::Delete()
 	//deletes buffer from memory
 	glDeleteBuffers (1, &ID);
 }
+
+void VertexBufferObject::UpdateData(GLuint numberOfComponents, GLenum type, GLintptr offset, GLfloat* data)
+{
+	Bind();
+	glBufferSubData(GL_ARRAY_BUFFER, offset, (numberOfComponents * sizeof(type)), data);
+	Unbind();
+}
