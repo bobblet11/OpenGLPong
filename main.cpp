@@ -2,7 +2,7 @@
 #include<iostream>
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
-
+#include<chrono>
 //custom openGl classes
 #include "VertexArrayObjectClass.h"
 #include "VertexBufferObjectClass.h"
@@ -14,14 +14,32 @@
 #include "Gameobject.h"
 
 //rendering values
-const int windowPixelWidth = 800;
+const int windowPixelWidth = 1920;
 const int windowPixelHeight = 800;
 const char* windowName = "OpenGLWindow";
+const int speed = 1;
 
 bool initGLFW();
 GLFWwindow* initWindow();
 void clearProgram(GLFWwindow* window);
-void getInput(GLFWwindow* window, GLfloat* offset);
+void getInput(GLFWwindow* window, GLfloat* offset, long &deltaT);
+
+GLfloat vertices[] = {
+						-0.5f, -0.5f,		0.22f, 1.0f, 0.3f, //0 bottom left
+						-0.5f,  0.5f,		1.6f, 0.66f, 0.9f, //1 top left
+						 0.5f,  0.5f,		1.2f, 1.1f, 1.0f, //2 top right
+						 0.5f, -0.5f,		1.77f, 1.0f, 0.1f, //3 bottom right
+};
+
+GLuint renderOrder[] = {
+	0, 1, 3,
+	3, 1, 2
+};
+
+GLfloat scale[] = {
+						 0.1f,  1.0f							//first object
+};
+
 
 int main()
 {
@@ -35,19 +53,6 @@ int main()
 	{
 		return -1;
 	}
-
-	GLfloat vertices[] = {
-						-0.5f, -0.5f,		0.22f, 1.0f, 0.3f, //0 bottom left
-						-0.5f,  0.5f,		1.6f, 0.66f, 0.9f, //1 top left
-						 0.5f,  0.5f,		1.2f, 1.1f, 1.0f, //2 top right
-						 0.5f, -0.5f,		1.77f, 1.0f, 0.1f, //3 bottom right
-						};
-
-	GLuint renderOrder[] = {
-		0, 1, 3,
-		3, 1, 2
-	};
-			
 	GameObject player(0.0f, 0.0f, 1.0f, 1.0f);
 
 	GLfloat offset[] = {
@@ -62,34 +67,37 @@ int main()
 
 	VertexBufferObject positions(vertices, sizeof(vertices));
 	VertexBufferObject offsets(offset, sizeof(offset));
-
+	VertexBufferObject scales(scale, sizeof(scale));
 	ElementBufferObject EBO(renderOrder, sizeof(renderOrder));
 	
 	//tells OPENGL how to read the buffer, here we specify 2 sections of the buffer, the coordinates and the colour
 	VAO.LinkVertexBuffferObject(positions, 0, 2, GL_FLOAT, 5 * sizeof(float), (void*)0, 0);					//coord
 	VAO.LinkVertexBuffferObject(positions, 1, 3, GL_FLOAT, 5 * sizeof(float), (void*)(2 * sizeof(float)), 0);    //colour
-	VAO.LinkVertexBuffferObject(offsets, 2, 2, GL_FLOAT, 2 * sizeof(float), (void*)(0 * sizeof(float)), 2);	//offsets
+	VAO.LinkVertexBuffferObject(offsets, 2, 2, GL_FLOAT, 2 * sizeof(float), (void*)(0 * sizeof(float)), 1);	//offsets
+	VAO.LinkVertexBuffferObject(scales, 3, 2, GL_FLOAT, 2 * sizeof(float), (void*)(0 * sizeof(float)), 2);	//scales
 	//Unbinds all Objects so that they aren't accidently modified
 	VAO.Unbind();
 	positions.Unbind();
 	offsets.Unbind();
+	scales.Unbind();
 	EBO.Unbind();
-
 
 
 	//set uniform values
 
 	//loop
-
+	long deltaT = 10000;
 	while (!glfwWindowShouldClose(window))
 	{
+		std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f); //an RGB argument
 		glClear(GL_COLOR_BUFFER_BIT);
 
 	
 		ShaderProgram.Activate();
 
-		getInput(window, offset);
+		getInput(window, offset, deltaT);
 
 		offsets.UpdateData(sizeof(offset) / sizeof(float), GL_FLOAT, 0, offset);
 
@@ -98,6 +106,9 @@ int main()
 		
 		glfwSwapBuffers(window);
 		glfwPollEvents();
+		std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+		deltaT = std::chrono::duration_cast<std::chrono::microseconds> (end - begin).count();
+		
 	}
 
 	VAO.Delete();
@@ -149,7 +160,7 @@ GLFWwindow* initWindow()
 
 	//begins glad
 	gladLoadGL();
-	glViewport(0, 0, windowPixelHeight, windowPixelHeight);
+	glViewport(0, 0, windowPixelWidth, windowPixelHeight);
 	return window;
 }
 
@@ -169,24 +180,24 @@ bool checkCollide(GameObject& r1,GameObject& r2)
 	return 1;
 }
 
-void getInput(GLFWwindow* window, GLfloat* offset)
+void getInput(GLFWwindow* window, GLfloat* offset, long&deltaT)
 {
-	std::cout << offset[0] << std::endl;
+	double move = deltaT * pow(10, -6) * speed;
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 	{
-		offset[0] -= 0.001f;
+		offset[0] -= move;
 	}
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{
-		offset[1] += 0.001f;
+		offset[1] += move;
 	}
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 	{
-		offset[0] += 0.001f;
+		offset[0] += move;
 	}
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 	{
-		offset[1] -= 0.001f;
+		offset[1] -= move;
 	}
 
 }
