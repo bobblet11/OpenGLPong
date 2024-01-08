@@ -6,25 +6,19 @@
 
 class GameObject {
 	public:
-		GameObject(GLfloat x, GLfloat y, GLfloat width, GLfloat height)
+		GameObject(GLfloat x, GLfloat y, float colliderWidth, float colliderHeight)
 		{
 			this->x = x;
 			this->y = y;
-			this->width = width;
-			this->height = height;
-			deltaX = 0.0f;
-			deltaY = 0.0f;
+			this->colliderHeight = colliderHeight;
+			this->colliderWidth = colliderWidth;
 		}
 
-		void updatePosition()
-		{
-			x += deltaX;
-			y += deltaY;
-		}
-		
 		GLfloat x, y;
-		GLfloat deltaX, deltaY;
-		GLfloat width, height;
+
+		float colliderHeight, colliderWidth;
+
+		float velocityX = 0.0f, velocityY =0.0f;
 };
 
 
