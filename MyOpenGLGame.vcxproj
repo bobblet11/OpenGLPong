@@ -71,24 +71,24 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\Dev\Projects\repos\MyOpenGLGame\Libraries\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Dev\Projects\reposCPP\MyOpenGLGame\Libraries\include;$(IncludePath)</IncludePath>
     <ExternalIncludePath>$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>C:\Dev\Projects\repos\MyOpenGLGame\Libraries\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Dev\Projects\reposCPP\MyOpenGLGame\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\Dev\Projects\repos\MyOpenGLGame\Libraries\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Dev\Projects\reposCPP\MyOpenGLGame\Libraries\include;$(IncludePath)</IncludePath>
     <ExternalIncludePath>$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>C:\Dev\Projects\repos\MyOpenGLGame\Libraries\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Dev\Projects\reposCPP\MyOpenGLGame\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Dev\Projects\repos\MyOpenGLGame\Libraries\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Dev\Projects\reposCPP\MyOpenGLGame\Libraries\include;$(IncludePath)</IncludePath>
     <ExternalIncludePath>$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>C:\Dev\Projects\repos\MyOpenGLGame\Libraries\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Dev\Projects\reposCPP\MyOpenGLGame\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Dev\Projects\repos\MyOpenGLGame\Libraries\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Dev\Projects\reposCPP\MyOpenGLGame\Libraries\include;$(IncludePath)</IncludePath>
     <ExternalIncludePath>$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>C:\Dev\Projects\repos\MyOpenGLGame\Libraries\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Dev\Projects\reposCPP\MyOpenGLGame\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
